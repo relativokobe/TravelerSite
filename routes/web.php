@@ -12,5 +12,12 @@
 */
 
 Route::get('/home', function () {
-    return view('welcome');
+    return view('LandingPage');
 });
+
+
+Route::get('/register','UserController@register');
+Route::post('/submitRegistration','UserController@submitRegister');
+Route::get('/southnorth','UserController@southOrNorth');
+Route::get('/south','TouristSpotController@south');
+Route::get('/north','TouristSpotController@north');

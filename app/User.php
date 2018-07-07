@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 'email', 'password', 'last_name', 'role','age','image_url','address'
     ];
 
     /**
@@ -26,4 +26,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function images(){
+        return $this->hasMany('App\Image','utp_id','id');
+    }
+
+    public function visited_tourist_spots(){
+        return $this->hasMany('App\UserTouristSpot','user_id','id');
+    } 
+
+    public function visited_place(){
+        return $this->hasMany('App\UserPlace','user_id','id');
+    }
+
 }
