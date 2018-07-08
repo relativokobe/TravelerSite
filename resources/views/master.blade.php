@@ -39,7 +39,8 @@
 	<meta name="twitter:card" content="" />
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	
+
+	@yield('head')
 
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 	
@@ -71,10 +72,7 @@
 
 	</head>
 	<body class="masterbody">
-		
-
-	@yield('content')
-
+		@yield('content')
 
 	<script src="{{asset('asset/js/jquery.min.js')}}"></script>
 	<!-- jQuery Easing -->

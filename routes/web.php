@@ -21,3 +21,6 @@ Route::post('/submitRegistration','UserController@submitRegister');
 Route::get('/southnorth','UserController@southOrNorth');
 Route::get('/south','TouristSpotController@south');
 Route::get('/north','TouristSpotController@north');
+Route::post('/login','UserController@login');
+Route::get('/{spot}/addtouristspot','UserController@addTouristSpot');
+Route::post('/{spot}/submitTouristSpot','TouristSpotController@submitTouristSpot');

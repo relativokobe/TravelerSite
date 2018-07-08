@@ -176,7 +176,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        FarhanWazir\GoogleMaps\GMapsServiceProvider::class,
     ],
 
     /*
@@ -224,6 +224,7 @@ return [
         'Storage' => Illuminate\Support\Facades\Storage::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
+        'GMaps' => FarhanWazir\GoogleMaps\Facades\GMapsFacade::class,
         'View' => Illuminate\Support\Facades\View::class,
 
     ],

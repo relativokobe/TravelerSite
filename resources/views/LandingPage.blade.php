@@ -16,23 +16,27 @@
 								   <!-- Tab panes -->
 									<div class="tab-content">
 									 <div role="tabpanel" class="tab-pane active" id="hotels">
+									 <form id="registerForm" method="POST" action="login">
+									 	 {{ csrf_field() }}
+									
 									 	<div class="row">
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
 													<label for="from">Email</label>
-													<input type="text" class="form-control" id="from-place"/>
+													<input type="text" class="form-control" id="from-place" name="email"/>
 												</div>
 											</div>
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
 													<label for="from">Password</label>
-													<input type="text" class="form-control" id="from-place"/>
+													<input type="text" class="form-control" id="from-place" name="password"/>
 												</div>
 											</div>
 											<div class="col-xs-12">
 												<input type="submit" class="btn btn-primary btn-block" value="Login">
 											</div>
 										</div>
+									  </form>
 									 </div>
 
 									 <div role="tabpanel" class="tab-pane" id="packages">
