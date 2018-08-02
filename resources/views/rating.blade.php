@@ -1,0 +1,1 @@
+<p id="rating" style="color: #F78536">{{$rating}}</p>/10

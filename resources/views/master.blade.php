@@ -40,8 +40,6 @@
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-	@yield('head')
-
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 	
 	<!-- Animate.css -->
@@ -62,7 +60,7 @@
 	
 	<link rel="stylesheet" href="{{asset('asset/css/style.css')}}">
 
-
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<!-- Modernizr JS -->
 	<script src="{{asset('asset/js/modernizr-2.6.2.min.js')}}"></script>
 	<!-- FOR IE9 below -->
@@ -71,35 +69,15 @@
 	<![endif]-->
 
 	</head>
+
 	<body class="masterbody">
+	<div id="fh5co-wrapper">
+		<div id="fh5co-page">
 		@yield('content')
+		</div>
+		</div>
 
-	<script src="{{asset('asset/js/jquery.min.js')}}"></script>
-	<!-- jQuery Easing -->
-	<script src="{{asset('asset/js/jquery.easing.1.3.js')}}"></script>
-	<!-- Bootstrap -->
-	<script src="{{asset('asset/js/bootstrap.min.js')}}"></script>
-	<!-- Waypoints -->
-	<script src="{{asset('asset/js/jquery.waypoints.min.js')}}"></script>
-	<script src="{{asset('asset/js/sticky.js')}}"></script>
-
-	<!-- Stellar -->
-	<script src="{{asset('asset/js/jquery.stellar.min.js')}}"></script>
-	<!-- Superfish -->
-	<script src="{{asset('asset/js/hoverIntent.js')}}"></script>
-	<script src="{{asset('asset/js/superfish.js')}}"></script>
-	<!-- Magnific Popup -->
-	<script src="{{asset('asset/js/jquery.magnific-popup.min.js')}}"></script>
-	<script src="{{asset('asset/js/magnific-popup-options.js')}}"></script>
-	<!-- Date Picker -->
-	<script src="{{asset('asset/js/bootstrap-datepicker.min.js')}}"></script>
-	<!-- CS Select -->
-	<script src="{{asset('asset/js/classie.js')}}"></script>
-	<script src="{{asset('asset/js/selectFx.js')}}"></script>
-	
-	<!-- Main JS -->
-	<script src="{{asset('asset/js/main.js')}}"></script>
-
+	@include('scripts')	
 	</body>
 </html>
 

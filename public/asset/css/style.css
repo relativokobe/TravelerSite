@@ -768,9 +768,13 @@ div.cs-select span {
   box-shadow: 0px 10px 20px -12px rgba(0, 0, 0, 0.18);
 }
 
+#fh5co-blog-section{
+  padding: 3em 0;
+}
+
 #fh5co-work-section,
 #fh5co-car,
-#fh5co-blog-section,
+
 #fh5co-features,
 #fh5co-tours,
 #fh5co-testimonial,

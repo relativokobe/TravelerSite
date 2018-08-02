@@ -4,25 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\TouristSpot;
+use App\Place;
 
 class TouristSpotController extends Controller
 {
     //
-    public function south(){
-    	$spot = "south";
-
-    	return view('South.south','spot');
+    public function spot($spot){
+        $touristSpots = TouristSpot::where('spot',$spot)->get();
+        
+    	return view('Spot.spot',compact('spot','touristSpots'));
     }
-    public function north(){
-    	$spot = "north";
 
-    	$touristSpots = TouristSpot::where('spot','north')->get();
-
-    	return view('North.north',compact('spot','touristSpots'));
-    }
 
     public function submitTouristSpot($spot,Request $request){
-
 
         $url = $this->uploadFile($request->file('image'));
     	TouristSpot::create([
@@ -36,7 +30,9 @@ class TouristSpotController extends Controller
     		'image_url'=>$url,
     		'web_url'=>$request->webUrl,
     		'email_address'=>$request->emailAdd,
-    		'spot'=>$spot
+    		'spot'=>$spot,
+            'lat'=>$request->lat,
+            'long'=>$request->long,
     		]);
         
     	return redirect($spot);
@@ -64,6 +60,37 @@ class TouristSpotController extends Controller
             return $file;
         }
 
-
     }
+
+    public function touristSpotProfile($spot,$touristSpotId,Request $request){
+        $touristSpot = TouristSpot::find($touristSpotId);
+        $places = $touristSpot->places;
+        $tourist_spot_id  = $touristSpot->id;
+        if($request->minimum != null && $request->maximum != null){
+             $places = Place::whereBetween('estimated_Budget', array($request->minimum,$request->maximum))->get();
+        }
+
+        $comments = $touristSpot->comments;
+        $rating = $touristSpot->review;
+        
+        return view('touristSpotProfile',compact('touristSpot','comments','spot','places','rating','tourist_spot_id'));
+    }
+
+     public function hiddenRatings(Request $request){
+        return view('hiddenRating');
+    }
+
+    public function rate($spot,$touristSpotId,Request $request){
+       
+        $touristSpot = TouristSpot::find($touristSpotId);
+        $newTotalRating = $touristSpot->totalAddedRating + $request->rating;
+        $rating = $newTotalRating / ($touristSpot->reviewers_no + 1);
+        $touristSpot->review = $rating;
+        $touristSpot->totalAddedRating = $newTotalRating;
+        $touristSpot->reviewers_no = ($touristSpot->reviewers_no + 1);
+        $touristSpot->save();
+
+        return view('rating',compact('rating'));
+    }
+
 }

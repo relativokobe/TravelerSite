@@ -30,33 +30,35 @@
 			</div>
 </header>
 </div>
-
 @section('content')
-<div id="southnorthdiv">
-  <div class="innerdiv">
-	<div id="north" class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn">
-			<div href="#"><img src="{{asset('asset/images/south.jpg')}}" alt="Free HTML5 Website Template by FreeHTML5.co" id="southpic" class="img-responsive">
-				<div class="desc">
-										<span></span>
-										<h3 class="price">South of Cebu</h3>
-										<a class="btn btn-primary btn-outline" href="south">Visit <i class="icon-arrow-right22"></i></a>
-				</div>
-			</div>
-		</div>	
-	</div>
-
-	<div class="innerdiv">
-		<div id="south" class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn">
-			<div href="#"><img src="{{asset('asset/images/north.jpg')}}" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive" id="northpic">
-				<div class="desc">
-										<span></span>
-										<h3 class="price">North of Cebu</h3>
-										<a class="btn btn-primary btn-outline" href="north">Visit <i class="icon-arrow-right22"></i></a>
+<div id="fh5co-destination">
+			<div class="tour-fluid">
+				<div class="row">
+					<div class="col-md-12">
+						<ul id="fh5co-destination-list" class="animate-box">
+						 @foreach($touristSpots as $touristSpot)
+							<li class="one-forth text-center" style="background-image: url({{ $touristSpot->image_url }});">
+								<a href="{{$spot}}/{{$touristSpot->id}}">
+									<div class="case-studies-summary">
+										<h2>{{$touristSpot->name}}</h2>
+									</div>
+								</a>
+							</li>
+						@endforeach
+						@if(1 == \Auth::user()->role)
+							<li class="one-forth text-center" style="background-image: url(images/place-10.jpg); ">
+								<a href="{{$spot}}/addtouristspot">
+									<div class="case-studies-summary">
+										<h2>Add tourist spot</h2>
+									</div>
+								</a>
+							</li>
+						@endif	
+						</ul>		
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
 
 
-@endsection
+@section('content')

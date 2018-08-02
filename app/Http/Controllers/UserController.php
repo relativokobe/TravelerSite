@@ -5,17 +5,37 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use FarhanWazir\GoogleMaps\Facades\GMapsFacade;
 use App\User;
+use App\Comment;
 class UserController extends Controller
 {
     //
 
     public function register(){
 
-    	return view('register.register');
+    	return view('maps');
+    }
+
+    public function addComment($spot,$touristSpotId, Request $request){
+       
+        Comment::create([
+            'comment'=>$request->comment,
+            'dest_id'=>$touristSpotId,
+            'user_id'=>\Auth::user()->id
+            ]);
+
+        return redirect()->back();
+    }
+
+    public function logout(){
+
+        return 'fuck!';
+        auth()->logout();
+
+        return redirect('/');
     }
 
     public function submitRegister(Request $request){
-
+        dd($request);
         $email = User::where('email',$request->email)->get();
         if($email->count()){
 
@@ -75,7 +95,7 @@ class UserController extends Controller
                 auth()->login($user);
                 return redirect('southnorth');
            }else{
-                return redirect('home');
+                return redirect('/');
            }           
     }
 
