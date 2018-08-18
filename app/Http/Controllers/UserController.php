@@ -12,7 +12,8 @@ class UserController extends Controller
 
     public function register(){
 
-    	return view('maps');
+        $error = null;
+    	return view('Register.register',compact('error'));
     }
 
     public function addComment($spot,$touristSpotId, Request $request){
@@ -26,60 +27,71 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function logout(){
-
-        return 'fuck!';
-        auth()->logout();
+    public function logoutofceburoute(){
+        \Auth::logout();
 
         return redirect('/');
     }
 
     public function submitRegister(Request $request){
-        dd($request);
+        
         $email = User::where('email',$request->email)->get();
         if($email->count()){
-
+            $error = "Email address is already taken";
+            return view('Register.register',compact('error'));
         }else{
 
-            $user = User::create([
-            'first_name'=>$request->firstName,
-            'last_name'=>$request->lastName,
-            'image_url'=>'',
-            'email'=>$request->email,
-            'password'=>$request->password,
-            'address'=>'',
-            'role'=>2,
-            'age'=>1
-            ]);
+          $error = $this->validation($request);
 
-            auth()->login($user);
+          if($error == false){
 
-            return redirect('southnorth');
+                $user = User::create([
+                'first_name'=>$request->firstName,
+                'last_name'=>$request->lastName,
+                'image_url'=>'',
+                'email'=>$request->email,
+                'password'=>$request->password,
+                'address'=>'',
+                'role'=>2,
+                'age'=>1
+                ]);
+
+                auth()->login($user);
+
+                return redirect('southnorth');
+          }else{
+            return view('Register.register',compact('error'));
+          }
         }
-
-    
     	
     }
+
+    public function validation($request){
+        if(strlen($request->password) < 5){
+            return "Password length must be more than 5";    
+        }
+        if($this->checkEmail($request->email) != true){
+            return "Please input a valid email";
+        }
+
+        return false;
+
+    }
+
+    function checkEmail($email) {
+       if ( strpos($email, '@') !== false ) {
+          $split = explode('@', $email);
+          return (strpos($split['1'], '.') !== false ? true : false);
+       }
+       else {
+          return false;
+       }
+   }
+
     public function addTouristSpot($spot){
 
-        // $config['center'] = 'Manila, Philippines';
-        // $config['zoom'] = '14';
-        // $config['map_height'] = '500px';
-        // $config['scrollwheel'] = false;
-
-        // GMapsFacade::initialize($config);
-        // $map = GMapsFacade::create_map();
-
-        // $whatIWant = substr($map['js'], strpos($map['js'], "g(") + 1); 
-
-        // $sd = explode(")",$whatIWant,2);
-        // $good = substr($sd[0], strpos($sd[0], "(") + 1); 
-        // $lat = explode(",",$good,2);
-        // $long = substr($good, strpos($good, " ") + 1);
-
-
-        //return response()->json($long);
-        return view('addtouristspot',compact('spot'));
+        $error = null;
+        return view('addtouristspot',compact('spot','error'));
     }
 
     public function maps(){

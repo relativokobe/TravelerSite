@@ -8,38 +8,41 @@
 								<div class="tabulation animate-box">
 									<div class="tab-content">
 									 <div role="tabpanel" class="tab-pane active" id="hotels">
-									 <form id="registerForm" method="POST" action="submitRegistration">
+									 <form id="registerForm" method="POST" action="submitRegistration" autocomplete="off">
 									 {{ csrf_field() }}
+									 @if($error != null)
+									 	<p style="color: red;">{{$error}}</p>
+									 @endif
 									 	<div class="row">
 									 	 <div id="signUp" class="col-xxs-12 col-xs-12 mt"> <h1>Sign Up</h1></div>
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
 													<label for="from">First Name</label>
-													<input type="text"  class="form-control" name="firstName"/>
+													<input type="text"  class="form-control" name="firstName" required/>
 												</div>
 											</div>
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
 													<label for="from">Last Name</label>
-													<input type="text" class="form-control" name="lastName"/>
+													<input type="text" class="form-control" name="lastName" required/>
 												</div>
 											</div>
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
 													<label for="from">Email</label>
-													<input type="text" class="form-control" name="email"/>
+													<input type="text" class="form-control" name="email" required>
 												</div>
 											</div>
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
 													<label for="from">Password</label>
-													<input id="passwords" type="Password" class="form-control" name="password"/>
+													<input id="passwords" type="Password" class="form-control" name="password" required/>
 												</div>
 											</div>
 											<div class="col-xxs-12 col-xs-6 mt alternate">
 												<div class="input-field">
 													<label for="date-start">Birthday</label>
-													<input type="text" class="form-control" id="date-start" name="birthday" placeholder="mm/dd/yyyy"/>
+													<input type="text" class="form-control" id="date-start" name="birthday" placeholder="mm/dd/yyyy" required/>
 												</div>
 											</div>
 		

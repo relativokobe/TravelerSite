@@ -15,6 +15,9 @@
 									<div class="tab-content">
 									 <div role="tabpanel" class="tab-pane active" id="hotels">
 									 <form id="registerForm" method="POST" action="submitTouristSpot" enctype="multipart/form-data">
+									 @if($error != null)
+									 	<p style="color: red;">{{$error}}</p>
+									 @endif
 									 {{ csrf_field() }}
 									 <input type="text" id="long" name="long" hidden="hidden">
             						 <input type="text" id="lat" name="lat" hidden="hidden">
@@ -24,13 +27,13 @@
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
 													<label for="from"> Name</label>
-													<input type="text"  class="form-control" name="name"/>
+													<input type="text"  class="form-control" name="name" required/>
 												</div>
 											</div>
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
 													<label for="from">Address</label>
-													<input type="text" class="form-control" name="address" id="pac-input" placeholder="" />
+													<input type="text" class="form-control" name="address" id="pac-input" placeholder="" required/>
 												</div>
 											</div>
 											<div class="col-xxs-12 col-xs-12 mt" style="height: 350px;">
@@ -85,9 +88,16 @@
 											</div>
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
-													<label for="from">Choose Image</label>
+													<label for="from">Choose Display image</label>
 												</div>
-												<input type="file" class="form-control" name="image"/>
+												<input type="file" class="form-control" name="image" required/>
+											</div>
+
+											<div class="col-xxs-12 col-xs-12 mt">
+												<div class="input-field">
+													<label for="from">Upload images (you can choose many)</label>
+												</div>
+												<input type="file" class="form-control" name="images[]" multiple/>
 											</div>
 
 											<div class="col-xs-12">
@@ -193,8 +203,8 @@
       }
   </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCabVcBC6lLazhFds7JQGU9hPJt2ii77Ps&libraries=places&callback=initAutocomplete"
-    async defer></script>
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAh9Zof4j3ivJSWjB_YEnAvDsCjwr8h978&libraries=places&callback=initAutocomplete"
+         async defer></script>
 
 @endsection
 

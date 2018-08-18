@@ -11,10 +11,11 @@ class PlaceController extends Controller
     //
 
 
-    public function addPlace($spot,$touristSpotId){
+    public function addPlace($spot,$touristSpotId,Request $request){
 
     	$touristSpot = TouristSpot::find($touristSpotId);
-    	return view('addPlace',compact('touristSpot'));
+        $type = $request->type;
+    	return view('addPlace',compact('touristSpot','type'));
 
     }
     public function submitPlace($spot,$touristSpotId,Request $request){
@@ -55,7 +56,6 @@ class PlaceController extends Controller
        
             return url('/File_attachments').'/'.$filename;
             
-            
         }
         else
         {
@@ -65,11 +65,15 @@ class PlaceController extends Controller
 
     }
 
+
       public function placesAccordingToBudget(Request $request){
-        $places = Place::whereBetween('estimated_Budget', array($request->minimum,$request->maximum))->get();
+
+        $places = Place::whereBetween('estimated_Budget',array($request->minimum,$request->maximum))
+                        ->where('tourist_spot_id',$request->id)
+                        ->get();
+
         $tourist_spot_id = $request->id;
+        
         return view('places',compact('places','tourist_spot_id'));
     }
-
-   
 }

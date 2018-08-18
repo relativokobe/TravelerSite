@@ -16,7 +16,7 @@
 									 <form id="registerForm" method="POST" action="submitPlace" enctype="multipart/form-data">
 									 {{ csrf_field() }}
 									 	<div class="row">
-									 	<h1>Add a new place in {{$touristSpot->name}}</h1>
+									 	<h1>Add a new {{$type}} in {{$touristSpot->name}}</h1>
 									 	 <div id="signUp" class="col-xxs-12 col-xs-12 mt"> <h1></h1></div>
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
@@ -46,7 +46,7 @@
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
 													<label for="from">Contact no.</label>
-													<input type="text" id="passwords" class="form-control" name="contactNo"/>
+													<input type="number" id="passwords" class="form-control" name="contactNo"/>
 												</div>
 											</div>
 											<div class="col-xxs-12 col-xs-12 mt">
@@ -66,13 +66,13 @@
 												<div class="input-field">
 													<label for="from">Kind</label>
 													<select name="kind">
-														<option value="Restaurant">
+														<option value="place">
 													    Restaurant
 														</option>
-														<option value="Hotel">
+														<option value="place">
 														Hotel	
 														</option>
-														<option value="Fun and other activities">Fun and other activities</option>
+														<option value="activity">Fun and other activities</option>
 													</select>
 												</div>
 											</div>
@@ -89,9 +89,10 @@
 											</div>
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
-													<label for="from">Choose Image</label>
+													<label for="from">Add a photo</label>
+													    <input type="file" class="form-control" name="image"/>
 												</div>
-												<input type="file" class="form-control" name="image"/>
+												
 											</div>
 										
 											<div class="col-xs-12">

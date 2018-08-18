@@ -2,6 +2,7 @@
 
 
 @section ('content')
+
 <div class="fh5co-hero">
 			<div class="fh5co-overlay"></div>
 			<div class="fh5co-cover" data-stellar-background-ratio="0.5" style="background-image: url('{{asset('asset/images/loginBackground.png')}}');">
@@ -29,7 +30,7 @@
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
 													<label for="from">Password</label>
-													<input type="text" class="form-control" id="from-place" name="password"/>
+													<input type="password" class="form-control" id="from-place" name="password"/>
 												</div>
 											</div>
 											<div class="col-xs-12">
