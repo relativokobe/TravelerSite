@@ -35,4 +35,3 @@ Route::post('/{spot}/{touristSpotId}/rate','TouristSpotController@rate');
 Route::get('/{spot}/{touristSpotId}/photos','TouristSpotController@photos');
 Route::post('/{spot}/{touristSpotId}/upload','TouristSpotController@upload');
 Route::post('/rate','TestController@rate');
-Route::get('/kayata','UserController@kayata');

@@ -70,7 +70,7 @@
 
 	</head>
 
-	<body class="masterbody">
+	<body class="masterbody" style="background: rgba(255, 140, 0, 0.5);">
 	<div id="fh5co-wrapper">
 		<div id="fh5co-page">
 		@yield('content')

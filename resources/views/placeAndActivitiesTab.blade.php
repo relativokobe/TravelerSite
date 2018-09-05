@@ -38,7 +38,7 @@
 		console.log('pist');
 		var type = document.getElementById('placeType').value;
 		var id = document.getElementById('tourist_spot_id').value;
-		window.location.href = id+"/addPlace?type="+type;
+		window.location.href = id+"/addPlace";
 		
 	}
 	function tabClicked(type){
@@ -50,5 +50,80 @@
 			document.getElementById('placeType').value = 'activity';
 		}
 	}
+
+	var url = document.getElementById('url').value;
+	console.log(url);
+		var count = 0;
+	  $(document).ready(function(){	
+		$('#setButton').click(function(){
+			$.ajax({
+				async: false,
+			    url: "{{asset('asset/js/jquery.min.js')}}",
+			    dataType: 'script',
+			    success: function(response){
+			    	console.log('script loaded '+response);
+			    	var minimum = document.getElementById('minimum').value;
+			var maximum = document.getElementById('maximum').value;
+			var touristSpotid = document.getElementById('id').value;
+			console.log(minimum+maximum+url+$('meta[name="csrf-token"]').attr('content'));
+			$.ajax({
+				async: false,
+				url: url,
+				data: {minimum:minimum,maximum:maximum,_token:$('meta[name="csrf-token"]').attr('content'),id:touristSpotid},
+				type:'POST',
+				success: function(response){
+					console.log('shitshitshitshitshitshitshitshitshit'+response+'until here nigga');
+					if(response == 'error'){
+						$('#foaError').text('Minimum budget must not have a greater value than the maximum budget');
+						console.log('ni sud sa 78');
+					}else{
+					  $('#activities').html(response);
+					}
+					
+				},error: function(response){
+					console.log('fuck'+response);
+				}
+			})
+			    },
+			    error: function(response){
+			    	console.log(response+'faildo');
+			    }
+			});
+
+   	    });
+
+		
+		$('#rate').click(function(e){
+			if(count == 0){
+				$.ajax({
+				type:'GET',
+				url: "{{$touristSpot->id}}/hiddenRating",
+				success: function(data){
+					$('#ratingDiv').html(data);
+					count = count + 1;
+					console.log(count);
+				}
+			});
+			}else{
+				var rating = document.getElementById('inputrating').value;
+				console.log($('meta[name="csrf-token"]').attr('content'));
+				console.log(rating);
+				$.ajax({
+				 url:"{{$touristSpot->id}}/rate",
+				 data:{rating:rating,_token:$('meta[name="csrf-token"]').attr('content')},
+				 type: 'POST',
+				 success: function(response){
+				 	console.log(response);
+				 	$('#ratingDiv').html(response);
+				 	$('#rate').hide();
+				 	count = 0;
+				 }
+				});
+			}
+
+			 e.preventDefault();
+		});
+
+   	  }); 
 
 </script>

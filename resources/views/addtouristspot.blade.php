@@ -7,8 +7,11 @@
 
 
 @section('content')
+<div class="sticky-wrapper">
+ @include('navbar')
+</div>
 
-	<div class="fh5co-cover" data-stellar-background-ratio="0.5" style="background-image: url('{{asset('asset/images/north.jpg')}}');">
+	<div class="fh5co-cover" data-stellar-background-ratio="0.5">
 	<div id="mainDiv" class="col-sm-5 col-md-5">
 
 								<div class="tabulation animate-box">
@@ -16,14 +19,13 @@
 									 <div role="tabpanel" class="tab-pane active" id="hotels">
 									 <form id="registerForm" method="POST" action="submitTouristSpot" enctype="multipart/form-data">
 									 @if($error != null)
-									 	<p style="color: red;">{{$error}}</p>
+									 	<strong><p style="color: red;">{{$error}}</p></strong>
 									 @endif
 									 {{ csrf_field() }}
 									 <input type="text" id="long" name="long" hidden="hidden">
             						 <input type="text" id="lat" name="lat" hidden="hidden">
 									 	<div class="row">
 									 	<h1>Add a new tourist spot in {{$spot}} of Cebu</h1>
-									 	 <div id="signUp" class="col-xxs-12 col-xs-12 mt"> <h1></h1></div>
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
 													<label for="from"> Name</label>
@@ -45,8 +47,8 @@
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
 													<label for="from">Description</label>
-													<textarea  class="form-control" name="description">
-													</textarea>
+													<textarea  class="form-control" name="description" wrap="physical"></textarea>
+													
 												</div>
 											</div>
 											<div class="col-xxs-12 col-xs-12 mt">

@@ -98,8 +98,9 @@ input[type="file"] {
 		<div class="row" style="margin-top: 10px;">
 			 @if($images != null)
 			  @foreach($images as $image)
-				<div class="col-md-4 animate-box" data-animate-effect="fadeIn" >
-						<div href="#"><img src="{{$image->image_url}}" onclick="imageClicked(this)"class="myImg" style="height: 300px; margin: 10px; width: 800px; object-fit: cover">
+				<div class="col-md-4 animate-box" data-animate-effect="fadeIn">
+						<div href="#">
+                            <img src="{{$image->image_url}}" onclick="imageClicked(this)"class="myImg" style="height: 300px; margin: 10px; width: 800px; object-fit: cover">
 						</div>	
 				</div>		
 			 @endforeach	
@@ -108,12 +109,14 @@ input[type="file"] {
 
 <label class="btn btn-primary btn-outline btn-lg" style="  margin-left: 45%; 
     margin-right: 50%; 
-    margin-top: 10px;">
+    margin-top: 10px;
+    background: #F78536;
+    font: white;">
     <form style="display: none;" action="upload" method="POST" id="form" enctype="multipart/form-data">
         {{ csrf_field() }}
     <input id="preUpload" name="images[]" type="file" onchange="fileSelected()" style="display: none;" multiple>
     </form>
-    <i class="fa fa-cloud-upload"></i> Add new photos
+    <i class="fa fa-cloud-upload"></i> <p style="color: white;">Add new photos</p>
 </label>
 	
 				

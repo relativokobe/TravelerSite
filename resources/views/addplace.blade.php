@@ -7,34 +7,38 @@
 
 
 @section('content')
-
-	<div class="fh5co-cover" data-stellar-background-ratio="0.5" style="background-image: url('{{asset('asset/images/north.jpg')}}');">
+<div class="sticky-wrapper">
+ @include('navbar')
+</div>
+	<div class="fh5co-cover" data-stellar-background-ratio="0.5">
 	<div id="mainDiv" class="col-sm-5 col-md-5">
 								<div class="tabulation animate-box">
 									<div class="tab-content">
 									 <div role="tabpanel" class="tab-pane active" id="hotels">
 									 <form id="registerForm" method="POST" action="submitPlace" enctype="multipart/form-data">
+									 @if($error != null)
+									 <strong><p style="color: red;">{{$error}}</p></strong>
+									 @endif
 									 {{ csrf_field() }}
 									 	<div class="row">
-									 	<h1>Add a new {{$type}} in {{$touristSpot->name}}</h1>
+									 	<h1>{{$touristSpot->name}}</h1>
 									 	 <div id="signUp" class="col-xxs-12 col-xs-12 mt"> <h1></h1></div>
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
 													<label for="from"> Name</label>
-													<input type="text"  class="form-control" name="name"/>
+													<input type="text"  class="form-control" name="name" required/>
 												</div>
 											</div>
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
 													<label for="from">Address</label>
-													<input type="text" class="form-control" name="address"/>
+													<input type="text" class="form-control" name="address" required/>
 												</div>
 											</div>
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
 													<label for="from">Description</label>
-													<textarea  class="form-control" name="description">
-													</textarea>
+													<textarea  class="form-control" name="description" required></textarea>
 												</div>
 											</div>
 											<div class="col-xxs-12 col-xs-12 mt">
@@ -80,23 +84,23 @@
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
 													<label for="from">price</label>
-													<input type="text" id="passwords" name="price"/>
+													<input type="text" id="passwords" name="price" required/>
 
 													<label for="from">per</label>
-													<input type="text" id="passwords"  name="per"/>
+													<input type="text" id="passwords"  name="per"required/>
 													
 												</div>
 											</div>
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
 													<label for="from">Add a photo</label>
-													    <input type="file" class="form-control" name="image"/>
+													    <input type="file" class="form-control" name="image" required/>
 												</div>
 												
 											</div>
 										
 											<div class="col-xs-12">
-												<input type="submit" class="btn btn-primary btn-block" value="Register">
+												<input type="submit" class="btn btn-primary btn-block" value="Add">
 											</div>
 										</div>
 										</form>

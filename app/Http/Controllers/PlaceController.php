@@ -14,33 +14,63 @@ class PlaceController extends Controller
     public function addPlace($spot,$touristSpotId,Request $request){
 
     	$touristSpot = TouristSpot::find($touristSpotId);
-        $type = $request->type;
-    	return view('addPlace',compact('touristSpot','type'));
-
+        $error = null;
+    	return view('addPlace',compact('touristSpot','error'));
+        
     }
+    
     public function submitPlace($spot,$touristSpotId,Request $request){
+    	$error = $this->validation($request);
+        $touristSpot = TouristSpot::find($touristSpotId);
+        if($error == false){
+            
+            $url = $this->uploadFile($request->file('image'));
+
+            Place::create([
+            'kind'=>$request->kind,
+            'website_url'=>$request->website_url,
+            'email_address'=>$request->emailAdd,
+            'tourist_spot_id'=>$touristSpotId,
+            'description'=>$request->description,
+            'name'=>$request->name,
+            'owner'=>$request->owner,
+            'address'=>$request->address,
+            'kind'=>$request->kind,
+            'contact_no'=>$request->contactNo,
+            'image_url'=>$url,
+            'per'=>$request->per,
+            'estimated_Budget'=>$request->price,
+            ]);
+            return redirect($spot.'/'.$touristSpotId);
+            
+        }
     	
-    	$url = $this->uploadFile($request->file('image'));
-
-    	Place::create([
-    		'kind'=>$request->kind,
-    		'website_url'=>$request->website_url,
-    		'email_address'=>$request->emailAdd,
-    		'tourist_spot_id'=>$touristSpotId,
-    		'description'=>$request->description,
-    		'name'=>$request->name,
-    		'owner'=>$request->owner,
-    		'address'=>$request->address,
-    		'kind'=>$request->kind,
-    		'contact_no'=>$request->contactNo,
-    		'image_url'=>$url,
-    		'per'=>$request->per,
-    		'estimated_Budget'=>$request->price,
-    		]);
-
-    	return redirect($spot.'/'.$touristSpotId);
+        return view('addPlace',compact('error','touristSpot'));
+    	
 
     }
+
+    public function validation($request){
+
+         if($this->checkEmail($request->emailAdd) != true){
+            return "Please input a valid email address";
+         }
+
+         return false;
+    }
+
+    function checkEmail($email) {
+      if($email == ''){
+          return true;
+      }
+       if ( strpos($email, '@') !== false ) {
+          $split = explode('@', $email);
+          return (strpos($split['1'], '.') !== false ? true : false);
+       }
+       else {
+          return false;
+       }
+   }
 
     public function uploadFile($file){
 
@@ -68,12 +98,22 @@ class PlaceController extends Controller
 
       public function placesAccordingToBudget(Request $request){
 
-        $places = Place::whereBetween('estimated_Budget',array($request->minimum,$request->maximum))
-                        ->where('tourist_spot_id',$request->id)
+        $activities = null;
+
+        if($request->minimum >= $request->maximum){
+            $activities = Place::where('tourist_spot_id',$request->id)
+                        ->where('kind','activity')
                         ->get();
 
+                      return 'error';
+        }else{
+            $activities = Place::whereBetween('estimated_Budget',array($request->minimum,$request->maximum))
+                        ->where('tourist_spot_id',$request->id)
+                        ->where('kind','activity')
+                        ->get();
+        }
+
         $tourist_spot_id = $request->id;
-        
-        return view('places',compact('places','tourist_spot_id'));
+        return view('funAndActivitiesList',compact('activities','tourist_spot_id'));
     }
 }

@@ -11,7 +11,7 @@
 									 <form id="registerForm" method="POST" action="submitRegistration" autocomplete="off">
 									 {{ csrf_field() }}
 									 @if($error != null)
-									 	<p style="color: red;">{{$error}}</p>
+									 	<strong><p style="color: red;">{{$error}}</p></strong>
 									 @endif
 									 	<div class="row">
 									 	 <div id="signUp" class="col-xxs-12 col-xs-12 mt"> <h1>Sign Up</h1></div>
@@ -42,7 +42,7 @@
 											<div class="col-xxs-12 col-xs-6 mt alternate">
 												<div class="input-field">
 													<label for="date-start">Birthday</label>
-													<input type="text" class="form-control" id="date-start" name="birthday" placeholder="mm/dd/yyyy" required/>
+													<input type="text" class="form-control" id="date-start" name="birthday" placeholder="mm/dd/yyyy" required/><p style="color: red;">You must be 18 years old and above to use Cebu Route Project</p>
 												</div>
 											</div>
 		
@@ -50,7 +50,7 @@
 												<input type="submit" class="btn btn-primary btn-block" value="Register">
 											</div>
 										</div>
-										</form>
+										</form>	
 									 </div>
 
 									 <div role="tabpanel" class="tab-pane" id="packages">

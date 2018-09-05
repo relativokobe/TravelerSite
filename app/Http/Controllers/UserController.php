@@ -53,7 +53,7 @@ class UserController extends Controller
                 'password'=>$request->password,
                 'address'=>'',
                 'role'=>2,
-                'age'=>1
+                'age'=>$this->calculateAge($request->birthday)
                 ]);
 
                 auth()->login($user);
@@ -66,12 +66,24 @@ class UserController extends Controller
     	
     }
 
+    public function calculateAge($birthday){
+        $birthday = \Carbon\Carbon::parse($birthday);
+        $now = \Carbon\Carbon::now();
+
+        $age = $now->diffInYears($birthday);
+
+        return $age;
+    }
+
     public function validation($request){
         if(strlen($request->password) < 5){
             return "Password length must be more than 5";    
         }
         if($this->checkEmail($request->email) != true){
             return "Please input a valid email";
+        }
+        if($this->calculateAge($request->birthday) < 18){
+            return "You must be 18 years old and above to register";
         }
 
         return false;

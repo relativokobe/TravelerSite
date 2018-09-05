@@ -19,10 +19,13 @@ class TouristSpotController extends Controller
 
     public function submitTouristSpot($spot,Request $request){
 
-        $url = $this->uploadFile($request->file('image'));
+        dd($request);
         $error = $this->validation($request);
+        dd($request);
 
         if($error == false){
+            $url = $this->uploadFile($request->file('image'));
+
             $touristSpotId = TouristSpot::create([
             'name'=>$request->name,
             'address'=>$request->address,
@@ -52,7 +55,7 @@ class TouristSpotController extends Controller
     public function validation($request){
 
          if($this->checkEmail($request->emailAdd) != true){
-            return "Please input a valid email";
+            return "Please input a valid email address";
          }
          if($request->lat == null || $request->long == null){
             return "Please pick a place";
@@ -62,6 +65,9 @@ class TouristSpotController extends Controller
     }
 
     function checkEmail($email) {
+      if($email == ''){
+          return true;
+      }
        if ( strpos($email, '@') !== false ) {
           $split = explode('@', $email);
           return (strpos($split['1'], '.') !== false ? true : false);
@@ -72,14 +78,17 @@ class TouristSpotController extends Controller
    }
 
     public function uploadMultipleFile($images,$ownerId){
-        
-        foreach($images as $image){
+
+      if($images != null){
+          foreach($images as $image){
 
             Image::create([
                'utp_id'=>$ownerId,
                'image_url'=>$this->uploadFile($image)
             ]);
-        }   
+         }  
+      }
+         
     }
 
     public function uploadFile($file){
@@ -135,7 +144,9 @@ class TouristSpotController extends Controller
          $rated = true;
         }                      
 
-        return view('touristSpotProfile',compact('touristSpot','comments','spot','places','rating','tourist_spot_id','rated','images','activities'));
+        $error = null;
+
+        return view('touristSpotProfile',compact('touristSpot','comments','spot','places','rating','tourist_spot_id','rated','images','activities','error'));
     }
 
      public function hiddenRatings(Request $request){
@@ -143,7 +154,17 @@ class TouristSpotController extends Controller
     }
 
     public function rate($spot,$touristSpotId,Request $request){
-       
+
+
+      $error = null;
+      $rated = null;
+        if($request->rating > 10){
+            $rating = TouristSpot::find($touristSpotId)->review;
+            $error = 'Rating must not be more than 10';
+            $rated = false;
+            return view('rating',compact('rating','error','rated'));
+        }
+        
         $touristSpot = TouristSpot::find($touristSpotId);
         $newTotalRating = $touristSpot->totalAddedRating + $request->rating;
         $rating = $newTotalRating / ($touristSpot->reviewers_no + 1);
@@ -171,7 +192,10 @@ class TouristSpotController extends Controller
             
         }
 
-        return view('rating',compact('rating'));
+        $rated = true;
+
+        return view('rating',compact('rating','error','rated'));
+        
     }
 
     public function photos($spot,$touristSpotId){

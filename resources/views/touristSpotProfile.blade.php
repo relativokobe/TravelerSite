@@ -99,20 +99,10 @@
 					 <div class="tabulation animate-box">
 					  <div class="tab-content">
 						<div class="col-md-6">
-						  <div>
+							 <div>
 							<h4 class="section-title">Rating:</h4>
-							<div id="ratingDiv">
-							<p id="rating">
-							   @if($rating== null)
-                                 No one has rated this tourist spot yet
-                               @else                
-                                 <p id="rating" style="color: #F78536">{{$rating}}<span style="color: black">/10</span></p>
-                               @endif    
-							</p>
-							</div>
-							@if($rated == false)
-							<button id="rate" style="background-color: #F78536; color: #ffffff;" class="btn">Rate</button>
-							@endif
+							@include('rating')	
+
 							</div>
 							<hr style="background-color: #F78536; height: 1px;">
 							<ul class="contact-info">
@@ -155,9 +145,8 @@
 								</li>
 							</ul>
 						</div>
-						<div class="col-md-6" style="background:url({{ $touristSpot->image_url }}); object-fit: cover; height: 400px; margin-bottom: 20px;">
-							
-						</div>
+						<img src="{{ $touristSpot->image_url }}" class="col-md-6" style="object-fit: cover; height: 400px; margin-bottom: 20px;">
+
 					   </div>
 					 </div>
 
@@ -172,6 +161,7 @@
 						
 					   </div>
 					 </div>
+
 					 <div class="tabulation animate-box" style="margin-top: 30px;">
 					  <div class="tab-content">				
 						<div style="column-count: 3; column-gap: 10px; margin-left: 30px;">
@@ -218,75 +208,6 @@
 </script>
 
 <script type="text/javascript">
-
-		
-		var url = document.getElementById('url').value;
-		var count = 0;
-	  $(document).ready(function(){	
-		$('#subitpo').click(function(){
-			$.ajax({
-				async: false,
-			    url: "{{asset('asset/js/jquery.min.js')}}",
-			    dataType: 'script',
-			    success: function(response){
-			    	var minimum = document.getElementById('minimum').value;
-			var maximum = document.getElementById('maximum').value;
-			var touristSpotid = document.getElementById('id').value;
-			console.log(minimum+maximum+url+$('meta[name="csrf-token"]').attr('content'));
-			$.ajax({
-				async: false,
-				url: url,
-				data: {minimum:minimum,maximum:maximum,_token:$('meta[name="csrf-token"]').attr('content'),id:touristSpotid},
-				type:'POST',
-				success: function(response){
-					console.log(response);
-					$('#places').html(response);
-				},error: function(){
-					console.log('fuck');
-				}
-			})
-			    },
-			    error: function(response){
-			    	console.log(response+'success');
-			    }
-			});
-
-   	    });
-
-		
-
-		$('#rate').click(function(e){
-			if(count == 0){
-				$.ajax({
-				type:'GET',
-				url: "{{$touristSpot->id}}/hiddenRating",
-				success: function(data){
-					$('#ratingDiv').html(data);
-					count = count + 1;
-					console.log(count);
-				}
-			});
-
-			}else{
-				var rating = document.getElementById('inputrating').value;
-				console.log($('meta[name="csrf-token"]').attr('content'));
-				console.log(rating);
-				$.ajax({
-				 url:"{{$touristSpot->id}}/rate",
-				 data:{rating:rating,_token:$('meta[name="csrf-token"]').attr('content')},
-				 type: 'POST',
-				 success: function(response){
-				 	console.log(response);
-				 	$('#ratingDiv').html(response);
-				 	$('#rate').hide();
-				 }
-				});
-			}
-
-			 e.preventDefault();
-		});
-
-   	  }); 
 
       function initAutocomplete() {
       	  var vlat = parseFloat(document.getElementById('lat').value);
