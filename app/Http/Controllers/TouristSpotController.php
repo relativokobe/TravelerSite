@@ -17,11 +17,8 @@ class TouristSpotController extends Controller
         return view('Spot.spot',compact('spot','touristSpots','error'));
     }
 
-    public function submitTouristSpot($spot,Request $request){
-
-        dd($request);
+    public function submitTouristSpot($spot,Request $request){     
         $error = $this->validation($request);
-        dd($request);
 
         if($error == false){
             $url = $this->uploadFile($request->file('image'));
@@ -46,10 +43,9 @@ class TouristSpotController extends Controller
              return view('addtouristspot',compact('spot','error'));
         }
     	
-        $this->uploadMultipleFile($request->file('images'),$touristSpotId);
+      $this->uploadMultipleFile($request->file('images'),$touristSpotId);
         
     	return redirect($spot);
-
     }	
 
     public function validation($request){
@@ -64,7 +60,7 @@ class TouristSpotController extends Controller
          return false;
     }
 
-    function checkEmail($email) {
+    public function checkEmail($email) {
       if($email == ''){
           return true;
       }
