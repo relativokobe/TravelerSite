@@ -52,7 +52,6 @@
 	}
 
 	var url = document.getElementById('url').value;
-	console.log(url);
 		var count = 0;
 	  $(document).ready(function(){	
 		$('#setButton').click(function(){
@@ -72,7 +71,6 @@
 				data: {minimum:minimum,maximum:maximum,_token:$('meta[name="csrf-token"]').attr('content'),id:touristSpotid},
 				type:'POST',
 				success: function(response){
-					console.log('shitshitshitshitshitshitshitshitshit'+response+'until here nigga');
 					if(response == 'error'){
 						$('#foaError').text('Minimum budget must not have a greater value than the maximum budget');
 						console.log('ni sud sa 78');
@@ -81,12 +79,12 @@
 					}
 					
 				},error: function(response){
-					console.log('fuck'+response);
+					
 				}
 			})
 			    },
 			    error: function(response){
-			    	console.log(response+'faildo');
+			    	
 			    }
 			});
 

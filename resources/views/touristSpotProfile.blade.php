@@ -80,8 +80,23 @@
 }
 </style>
 <div class="sticky-wrapper">
- @include('navbar')
+<header id="fh5co-header-section" class="sticky-banner">
+			<div class="container">
+				<div class="nav-header">
+					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
+					<h1 id="fh5co-logo"><a href=""><i class="icon-airplane"></i>Cebu Route Project</a></h1>
+					<!-- START #fh5co-menu-wrap -->
+					<nav id="fh5co-menu-wrap" role="navigation">
+						<ul class="sf-menu" id="fh5co-primary-menu">
+							<li class="active"><a onclick="back()">Back</a></li>
+							<li><a href="{{ url('/logoutofceburoute') }}">Logout</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+</header>
 </div>
+<input id="spot" type="text"  value="{{$spot}}" hidden/>
 <input id="lat" type="text" name="lat" value="{{$touristSpot->lat}}" hidden="hidden"/>
 <input id="long" type="text" name="long" value="{{$touristSpot->long}}" hidden="hidden"/>
 <div style="background: -webkit-linear-gradient(left, rgba(255, 62, 28, 0.5) 0%, rgba(255, 140, 0, 0.5) 100%);>
@@ -208,6 +223,11 @@
 </script>
 
 <script type="text/javascript">
+
+	  function back(spot){
+	  	var spot = document.getElementById('spot').value;
+	  	window.location.href="http://localhost/CebuRouteProject/public/"+spot;
+	  }
 
       function initAutocomplete() {
       	  var vlat = parseFloat(document.getElementById('lat').value);

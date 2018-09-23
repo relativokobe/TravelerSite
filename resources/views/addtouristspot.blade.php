@@ -103,7 +103,7 @@
 											</div>
 
 											<div class="col-xs-12">
-												<input type="submit" class="btn btn-primary btn-block" value="Register">
+												<input type="submit" class="btn btn-primary btn-block" value="Add">
 											</div>
 										</div>
 										</form>

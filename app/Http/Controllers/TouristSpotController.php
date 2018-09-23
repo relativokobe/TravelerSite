@@ -141,8 +141,8 @@ class TouristSpotController extends Controller
         }                      
 
         $error = null;
-
-        return view('touristSpotProfile',compact('touristSpot','comments','spot','places','rating','tourist_spot_id','rated','images','activities','error'));
+        $path = $request->path();
+        return view('touristSpotProfile',compact('touristSpot','comments','spot','places','rating','tourist_spot_id','rated','images','activities','error','path'));
     }
 
      public function hiddenRatings(Request $request){
@@ -194,17 +194,17 @@ class TouristSpotController extends Controller
         
     }
 
-    public function photos($spot,$touristSpotId){
+    public function photos($spot,$touristSpotId,Request $request){
         $images = Image::where('utp_id',$touristSpotId)->get();
-        
-        return view('photos',compact('images','touristSpotId'));
+        $path = $spot.'/'.$touristSpotId;
+        return view('photos',compact('images','touristSpotId','path'));
     }
 
-    public function upload($spot,$touristSpotId,Request $request){
+    public function upload(Request $request){
         
-       // $this->uploadMultipleFile($request->images,$touristSpotId);
+        $this->uploadMultipleFile($request->images,$request->touristSpotId);     
         
-        return redirect($spot.'/'.$touristSpotId.'/photos');
+        return back();
     }
 
 }

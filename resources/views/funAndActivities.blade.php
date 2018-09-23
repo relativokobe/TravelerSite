@@ -5,7 +5,7 @@
    	  <p id="foaError" style="color: red;"></p>
 		<input type="number" id="minimum" name="minimum"  placeholder="minimum budget"> to
 		<input type="number" id="maximum" name="maximum"  placeholder="maximum budget">
-		<input type="text" id="url" value="{{$touristSpot->id}}/pisti" hidden="">
+		<input type="text" id="url" value="{{$touristSpot->id}}/change" hidden="">
 		<button id="setButton" style="background-color: #F78536; color: #ffffff;" class="btn">Set</button>		
 	</div>
 </div>
