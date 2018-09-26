@@ -7,7 +7,7 @@
 					<!-- START #fh5co-menu-wrap -->
 					<nav id="fh5co-menu-wrap" role="navigation">
 						<ul class="sf-menu" id="fh5co-primary-menu">
-							<li class="active"><a href="index.html">Home</a></li>
+							<li class="active"><a href="{{ url('/southnorth') }}">Home</a></li>
 							<li><a href="{{ url('/logoutofceburoute') }}">Logout</a></li>
 						</ul>
 					</nav>

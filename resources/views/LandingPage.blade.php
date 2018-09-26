@@ -56,8 +56,7 @@
 									
 									<h2>CEBUROUTE PROJECT</h2>
 									<hr>
-									<h4>We are here to help all users specially tourists to give specific 
-									directions of all the Tourist spots in the province of Cebu.</h4>
+									<h4>Explore the alluring attractions of the Queen City of the South.</h4>
 
 									<p id="register"> <a href="register" class="fh5co-site-name">Join us now!</a></p>
 									<!-- <p><a class="btn btn-primary btn-lg" href="#">Get Started</a></p> -->
