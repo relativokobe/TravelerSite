@@ -98,8 +98,6 @@ class PlaceController extends Controller
 
       public function placesAccordingToBudget(Request $request){
 
-        $activities = null;
-
         if($request->minimum >= $request->maximum){
             $activities = Place::where('tourist_spot_id',$request->id)
                         ->where('kind','activity')
@@ -107,13 +105,26 @@ class PlaceController extends Controller
 
                       return 'error';
         }else{
-            $activities = Place::whereBetween('estimated_Budget',array($request->minimum,$request->maximum))
-                        ->where('tourist_spot_id',$request->id)
-                        ->where('kind','activity')
-                        ->get();
-        }
+            $total_budget = 0;
+            $activities = array();
+
+           $activitiesQuery = Place::where('tourist_spot_id',$request->id)
+                  ->where('kind','activity')
+                  ->get();
+
+           foreach($activitiesQuery as $activity){
+             $total_budget = $total_budget + $activity->estimated_Budget;
+             if($total_budget <= $request->minimum){
+              array_push($activities,$activity);
+             }else if($total_budget <= $request->maximum){
+              array_push($activities, $activity);
+             }else{
+              
+             }
+          }
 
         $tourist_spot_id = $request->id;
         return view('funAndActivitiesList',compact('activities','tourist_spot_id'));
+        }
     }
 }

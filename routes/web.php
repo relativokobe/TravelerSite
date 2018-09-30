@@ -36,3 +36,5 @@ Route::get('/{spot}/{touristSpotId}/photos','TouristSpotController@photos');
 Route::post('/{spot}/{touristSpotId}/upload','TouristSpotController@upload');
 Route::post('/rate','TestController@rate');
 Route::get('/{spot}/{touristSpotId}/photoSection','TouristSpotController@photoSection');
+Route::get('/{spot}/{touristSpotId}/addNearBy','TouristSpotController@addNearBy');
+Route::post('/{spot}/{touristSpotId}/submitNearBy','TouristSpotController@submitNearBy');

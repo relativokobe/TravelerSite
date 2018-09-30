@@ -1,10 +1,8 @@
 @extends('master')
-
-
 <div id="placesdiv" class="row row-bottom-padded-md">
 @if($places != null)
 @foreach($places as $place)
-<div class="col-lg-4 col-md-4 col-sm-6">
+<div class="kyle col-lg-4 col-md-4 col-sm-6" >
 						<div class="fh5co-blog animate-box">
 							<a href="#"><img class="img-responsive" 
 							src="{{ $place->image_url }}" alt="" style="height: 300px;"></a>

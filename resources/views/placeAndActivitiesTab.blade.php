@@ -9,6 +9,9 @@
 								      <li role="presentation">
 								    	   <a href="#z" aria-controls="z" role="tab" data-toggle="tab" onclick="tabClicked('activity')">Fun and other Activities</a>
 								      </li>
+  										<li role="presentation">
+								    	   <a href="#nearBy" aria-controls="nearBy" role="tab" data-toggle="tab" onclick="tabClicked('nearBy')">Nearby tourist spots</a>
+								      </li>
 								   </ul>
 
 								   <!-- Tab panes -->
@@ -26,6 +29,12 @@
 									 		@include('funAndActivities')
 										</div>
 									 </div>
+									 <div role="tabpanel" class="tab-pane" id="nearBy">
+									 	<div class="row">
+									 		<input type="text" value="activity" hidden>
+									 		@include('nearbyTouristSpots')
+										</div>
+									 </div>
 									</div> 
 									
 
@@ -34,11 +43,15 @@
 <input type="text" id="placeType" hidden value="place">
 <script type="text/javascript">
 
-	function clicked(){
-		console.log('pist');
-		var type = document.getElementById('placeType').value;
+	function clicked(type){
 		var id = document.getElementById('tourist_spot_id').value;
-		window.location.href = id+"/addPlace";
+		if(type == 'nearby'){
+		window.location.href = id+"/addNearBy";	
+		}else{
+			window.location.href = id+"/addPlace";
+		}
+		var type = document.getElementById('placeType').value;
+	
 		
 	}
 	function tabClicked(type){

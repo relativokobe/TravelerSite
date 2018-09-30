@@ -7,7 +7,7 @@ use App\TouristSpot;
 use App\Place;
 use App\UserTouristSPot;
 use App\Image;
-
+use App\nearby_tourist_spots;
 class TouristSpotController extends Controller
 {
     //
@@ -15,6 +15,46 @@ class TouristSpotController extends Controller
         $touristSpots = TouristSpot::where('spot',$spot)->get();
         $error = null;
         return view('Spot.spot',compact('spot','touristSpots','error'));
+    }
+
+    public function submitNearBy($spot,$touristSpotId, Request $request){
+      nearby_tourist_spots::create([
+        'nearbyTouristSpotId'=>$request->id,
+        'touristSpotId'=>$touristSpotId
+      ]);
+
+      $nearbyTouristSpots = $this->getNotNearTouristSpots($touristSpotId);
+      $tourist_spot_id = $touristSpotId;
+      return view('list',compact('nearbyTouristSpots','tourist_spot_id'));
+    }
+
+    public function addNearBy($spot,$touristSpotId,Request $request){
+         $nearbyTouristSpots = $this->getNotNearTouristSpots($touristSpotId);
+         $tourist_spot_id = $touristSpotId;
+
+         return view('addNearBy',compact('nearbyTouristSpots','tourist_spot_id'));
+    }
+    public function getNotNearTouristSpots($touristSpotId){
+      $touristSpots = TouristSpot::where('id','!=',$touristSpotId)->get();
+      $nearSpots = nearby_tourist_spots::where('touristSpotId',$touristSpotId)->get();
+
+      $notNearbyTouristSpots = array();
+
+      foreach($touristSpots as $touristSpot){
+        $bool = false;
+        foreach($nearSpots as $nearSpot){
+            if($touristSpot->id == $nearSpot->nearbyTouristSpotId){
+              $bool = true;
+              break;
+            }
+        }
+        if($bool == false){
+          array_push($notNearbyTouristSpots,$touristSpot);
+        } 
+      }
+    
+      return $notNearbyTouristSpots;
+
     }
 
     public function submitTouristSpot($spot,Request $request){     
@@ -29,7 +69,7 @@ class TouristSpotController extends Controller
             'description'=>$request->description,
             'owner'=>$request->owner,
             'contact_no'=>$request->contactNo,
-            'price'=>$request->price,
+            'estimated_Budget'=>$request->price,
             'per'=>$request->per,
             'image_url'=>$url,
             'web_url'=>$request->webUrl,
@@ -111,6 +151,30 @@ class TouristSpotController extends Controller
 
     }
 
+    public function getNearestTouristSpots($touristSpotId){
+      $touristSpots = TouristSpot::where('id','!=',$touristSpotId)->get();
+      $nearSpots = nearby_tourist_spots::where('touristSpotId',$touristSpotId)->get();
+
+
+      $nearbyTouristSpots = array();
+
+      foreach($touristSpots as $touristSpot){
+        $bool = false;
+        foreach($nearSpots as $nearSpot){
+            if($touristSpot->id == $nearSpot->nearbyTouristSpotId){
+              $bool = true;
+              break;
+            }
+        }
+        if($bool == true){
+          array_push($nearbyTouristSpots,$touristSpot);
+        } 
+      }
+
+      return $nearbyTouristSpots;
+
+    }
+
     public function touristSpotProfile($spot,$touristSpotId,Request $request){
 
         $touristSpot = TouristSpot::find($touristSpotId);
@@ -130,7 +194,7 @@ class TouristSpotController extends Controller
 
         $comments = $touristSpot->comments;
         $rating = $touristSpot->review;
-
+        $nearbyTouristSpots = $this->getNearestTouristSpots($touristSpotId);
         $userTouristSPot = UserTouristSpot::where('user_id',\Auth::user()->id)
                                         ->where('tourist_spot_id',$touristSpotId)
                                         ->first();
@@ -142,7 +206,7 @@ class TouristSpotController extends Controller
 
         $error = null;
         $path = $request->path();
-        return view('touristSpotProfile',compact('touristSpot','comments','spot','places','rating','tourist_spot_id','rated','images','activities','error','path'));
+        return view('touristSpotProfile',compact('touristSpot','comments','spot','nearbyTouristSpots','places','rating','tourist_spot_id','rated','images','activities','error','path'));
     }
 
      public function hiddenRatings(Request $request){
