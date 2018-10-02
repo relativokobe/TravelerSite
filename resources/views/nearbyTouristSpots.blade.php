@@ -10,10 +10,10 @@
 								<div class="prod-title">
 									<div class="col-md-12 text-center animate-box">
 										<h3><a href="#">{{$place->name}}</a></h3>
-										<span style="font-style: bold;">₱{{$place->estimated_Budget}} per {{$place->per}}
+										<span style="font-style: bold;"><u>₱{{$place->estimated_Budget}} per {{$place->per}}</u>
 										</span>
 										<p>{{$place->description}}</p>
-										<p><a href="#">Learn More...</a></p>
+										<p><a onclick="touristSpot({{$place->id}})">Learn More...</a></p>
 									</div>
 								</div>
 							</div> 

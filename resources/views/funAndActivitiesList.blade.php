@@ -9,10 +9,9 @@
 								<div class="prod-title">
 									<div class="col-md-12 text-center animate-box">
 										<h3><a href="#">{{$activity->name}}</a></h3>
-										<span style="font-style: bold;">₱{{$activity->estimated_Budget}} per {{$activity->per}}
+										<span style="font-style: bold;"><u>₱{{$activity->estimated_Budget}} per {{$activity->per}}</u>
 										</span>
 										<p>{{$activity->description}}</p>
-										<p><a href="#">Learn More...</a></p>
 									</div>
 								</div>
 							</div> 

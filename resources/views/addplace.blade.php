@@ -68,6 +68,12 @@
 											</div>
 											<div class="col-xxs-12 col-xs-12 mt">
 												<div class="input-field">
+													<label for="from">Distance from {{$touristSpot->name}} (km)</label>
+													<input type="text" class="form-control" name="distance"/>
+												</div>
+											</div>
+											<div class="col-xxs-12 col-xs-12 mt">
+												<div class="input-field">
 													<label for="from">Kind</label>
 													<select name="kind">
 														<option value="place">

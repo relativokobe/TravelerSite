@@ -27,19 +27,20 @@ class PlaceController extends Controller
             $url = $this->uploadFile($request->file('image'));
 
             Place::create([
-            'kind'=>$request->kind,
-            'website_url'=>$request->website_url,
-            'email_address'=>$request->emailAdd,
-            'tourist_spot_id'=>$touristSpotId,
-            'description'=>$request->description,
-            'name'=>$request->name,
-            'owner'=>$request->owner,
-            'address'=>$request->address,
-            'kind'=>$request->kind,
-            'contact_no'=>$request->contactNo,
-            'image_url'=>$url,
-            'per'=>$request->per,
-            'estimated_Budget'=>$request->price,
+              'kind'=>$request->kind,
+              'website_url'=>$request->website_url,
+              'email_address'=>$request->emailAdd,
+              'tourist_spot_id'=>$touristSpotId,
+              'description'=>$request->description,
+              'name'=>$request->name,
+              'owner'=>$request->owner,
+              'address'=>$request->address,
+              'kind'=>$request->kind,
+              'contact_no'=>$request->contactNo,
+              'image_url'=>$url,
+              'per'=>$request->per,
+              'estimated_Budget'=>$request->price,
+              'distance'=>$request->distance
             ]);
             return redirect($spot.'/'.$touristSpotId);
             

@@ -50,9 +50,11 @@
 		}else{
 			window.location.href = id+"/addPlace";
 		}
-		var type = document.getElementById('placeType').value;
-	
 		
+	}
+	function touristSpot(id){
+
+		window.location.href = id;
 	}
 	function tabClicked(type){
 		if(type == 'place'){
