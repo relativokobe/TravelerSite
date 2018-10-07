@@ -54,9 +54,9 @@
 							<div class="desc2 animate-box">
 								<div class="col-sm-7 col-sm-push-1 col-md-7 col-md-push-1">
 									
-									<h2>CEBUROUTE PROJECT</h2>
+									<div><h2>CEBUROUTE</h2></div>
 									<hr>
-									<h4>Explore the alluring attractions of the Queen City of the South.</h4>
+									<h3>Explore the alluring attractions of the Queen City of the South.</h3>
 
 									<p id="register"> <a href="register" class="fh5co-site-name">Join us now!</a></p>
 									<!-- <p><a class="btn btn-primary btn-lg" href="#">Get Started</a></p> -->

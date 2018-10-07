@@ -9,9 +9,9 @@
 		<button id="setButton" style="background-color: #F78536; color: #ffffff;" class="btn">Set</button>		
 	</div>
 </div>
-<div id="activities" class="row row-bottom-padded-md">
+<div id="activities">
 @include('funAndActivitiesList')
-
-</div>
-
+							  
+</div>			
+					
 @include('scripts')

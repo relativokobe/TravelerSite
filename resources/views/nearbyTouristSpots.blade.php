@@ -13,7 +13,7 @@
 										<span style="font-style: bold;"><u>₱{{$place->estimated_Budget}} per {{$place->per}}</u>
 										</span>
 										<p>{{$place->description}}</p>
-										<p><a onclick="touristSpot({{$place->id}})">Learn More...</a></p>
+										<p><a class="btn btn-primary btn-outline btn-lg" onclick="touristSpot({{$place->id}})">View</a></p>
 									</div>
 								</div>
 							</div> 

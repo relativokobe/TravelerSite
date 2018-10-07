@@ -107,25 +107,54 @@ class PlaceController extends Controller
                       return 'error';
         }else{
             $total_budget = 0;
-            $activities = array();
-
+           
            $activitiesQuery = Place::where('tourist_spot_id',$request->id)
                   ->where('kind','activity')
+                  ->orderBy('estimated_Budget','asc')
                   ->get();
 
-           foreach($activitiesQuery as $activity){
-             $total_budget = $total_budget + $activity->estimated_Budget;
-             if($total_budget <= $request->minimum){
-              array_push($activities,$activity);
-             }else if($total_budget <= $request->maximum){
-              array_push($activities, $activity);
-             }else{
-              
-             }
-          }
+           $previousTotalSum = 0;
+           $nextTotalSum = 0;
+           $activitiesC = array();
+           $combo = array();
+           $counter = 0;
 
+           foreach($activitiesQuery as $activity){
+              $nextTotalSum = $nextTotalSum + $activity->estimated_Budget;
+              if($nextTotalSum <= $request->maximum){
+                array_push($combo,$activity);
+                if($counter+1 == count($activitiesQuery)){
+                  array_push($activitiesC,$combo);
+                }
+              }else{
+                array_push($activitiesC,$combo);
+                $combo = array();
+                $nextTotalSum = 0;
+                if($activity->estimated_Budget <= $request->maximum){
+                  $nextTotalSum = $activity->estimated_Budget;
+                  array_push($combo,$activity);
+                  if($counter+1 == count($activitiesQuery)){
+                    array_push($activitiesC,$combo);
+                  }
+                }
+              }
+
+              $counter++;
+           }
+
+/*       for($d = 0; $d< count($activitiesC); $d++){
+          for($i = 0; $i< count($activitiesC[$d]); $i++){
+            echo ' num = '.$d.' wew = '.$activitiesC[$d][$i]->estimated_Budget;
+        }
+       }*/
+       
+
+       //return null;
+        $activities = null;
         $tourist_spot_id = $request->id;
-        return view('funAndActivitiesList',compact('activities','tourist_spot_id'));
+       //return response()->json($activitiesC);
+
+        return view('funAndActivitiesList',compact('activitiesC','tourist_spot_id','activities'));
         }
     }
 }
