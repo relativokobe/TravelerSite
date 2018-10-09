@@ -17,13 +17,17 @@
 							</div> 
 						</div>
 </div>
-		
+														
 @endforeach
 </div>
 @else
 @for($d = 0; $d< count($activitiesC); $d++)
 <div class="row row-bottom-padded-md">
-<h1>Combo {{$d+1}}</h1>
+<h1>
+	@if(count($activitiesC[$d])>0)
+		Option {{$d+1}}
+	@endif
+</h1>
  @for($i = 0; $i< count($activitiesC[$d]); $i++)
  <div class="col-lg-4 col-md-4 col-sm-6">
 						<div class="fh5co-blog animate-box">
@@ -36,7 +40,7 @@
 										<span style="font-style: bold;"><u>₱{{$activitiesC[$d][$i]->estimated_Budget}} per {{$activitiesC[$d][$i]->per}}</u>
 										</span>
 										<p>{{$activitiesC[$d][$i]->description}}</p>
-										<p>Combo {{$d+1}}</p>
+										<p>Option {{$d+1}}</p>
 									</div>
 								</div>
 							</div> 

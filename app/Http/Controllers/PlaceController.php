@@ -118,6 +118,8 @@ class PlaceController extends Controller
            $activitiesC = array();
            $combo = array();
            $counter = 0;
+           $allBefore = array();
+           $first = true;
 
            foreach($activitiesQuery as $activity){
               $nextTotalSum = $nextTotalSum + $activity->estimated_Budget;
@@ -127,13 +129,45 @@ class PlaceController extends Controller
                   array_push($activitiesC,$combo);
                 }
               }else{
+               
+                if($first == true){
+                 
+                  $first = false;
+                  foreach($combo as $act){
+                    
+                    array_push($allBefore,$act);
+                  }
+
+                }else{
+                  $nextTotalSum = $nextTotalSum - $activity->estimated_Budget;
+                  
+                  $comboTempo = $combo;
+                  foreach($allBefore as $before){
+                    $tempo = $nextTotalSum + $before->estimated_Budget;
+                    if($tempo <= $request->maximum){
+                      array_push($combo,$before);
+                    }
+                  }
+                  foreach($comboTempo as $act){
+                   array_push($allBefore,$act);  
+                  }
+                }
                 array_push($activitiesC,$combo);
+
                 $combo = array();
                 $nextTotalSum = 0;
                 if($activity->estimated_Budget <= $request->maximum){
                   $nextTotalSum = $activity->estimated_Budget;
                   array_push($combo,$activity);
                   if($counter+1 == count($activitiesQuery)){
+                    $comboTempo = $combo;
+                    $tempo = $activity->estimated_Budget;
+                    foreach($allBefore as $before){
+                      $tempo = $tempo + $before->estimated_Budget;
+                      if($tempo <= $request->maximum){
+                        array_push($combo,$before);
+                      }
+                    }
                     array_push($activitiesC,$combo);
                   }
                 }
@@ -142,19 +176,14 @@ class PlaceController extends Controller
               $counter++;
            }
 
-/*       for($d = 0; $d< count($activitiesC); $d++){
-          for($i = 0; $i< count($activitiesC[$d]); $i++){
-            echo ' num = '.$d.' wew = '.$activitiesC[$d][$i]->estimated_Budget;
-        }
-       }*/
-       
+          }
+
 
        //return null;
         $activities = null;
         $tourist_spot_id = $request->id;
-       //return response()->json($activitiesC);
+      
 
         return view('funAndActivitiesList',compact('activitiesC','tourist_spot_id','activities'));
         }
-    }
 }
